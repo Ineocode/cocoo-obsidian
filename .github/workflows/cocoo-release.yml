@@ -1,0 +1,33 @@
+name: Create Cocoo 0.1.0 release
+on:
+  push:
+    branches:
+      - release/cocoo-0.1.0
+    paths:
+      - .github/workflows/cocoo-release.yml
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      REVIEWED_COMMIT: 7cafb9e17d391d173b3ae6631a54003371c5728d
+      RELEASE_VERSION: "0.1.0"
+    steps:
+      - name: Package the reviewed commit and create the release
+        shell: bash
+        run: |
+          set -euo pipefail
+          for asset in manifest.json theme.css; do
+            gh api "repos/$GH_REPO/contents/$asset?ref=$REVIEWED_COMMIT" --jq .content |
+              base64 --decode > "$asset"
+          done
+          jq -e --arg version "$RELEASE_VERSION" '.name == "Cocoo" and .version == $version' manifest.json >/dev/null
+          test -s theme.css
+          gh release create "$RELEASE_VERSION" manifest.json theme.css \
+            --target "$REVIEWED_COMMIT" --title "Cocoo 0.1.0" \
+            --notes "The first release of Cocoo, an Obsidian theme for long reading sessions and everyday note-taking."
