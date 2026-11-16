@@ -2,6 +2,12 @@
 
 Cocoo is an Obsidian theme for long reading sessions and everyday note-taking. Light mode pairs warm paper with dark ink, while dark mode uses soft, warm text on a near-black background. Teal links and fine-lined callouts make it easy to find your place without interrupting the flow of a note.
 
+## Light and dark
+
+![Cocoo in light mode, showing an underlined link, a note callout, a checklist, and a Python code block](./screenshots/light.webp)
+
+![The same note in Cocoo's dark mode](./screenshots/dark.webp)
+
 ## Details
 
 - Underlined links and a visible keyboard focus outline on inline note links.
