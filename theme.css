@@ -118,6 +118,20 @@
   box-shadow: inset 0 -2px var(--pt-current-match-line);
 }
 
+/* Reading view draws find results above the text. Keep the overlay translucent
+   so the underlying ink remains legible in both appearances. */
+.markdown-rendered .search-highlight > div {
+  background-color: color-mix(in srgb, var(--pt-match-bg) 65%, transparent);
+  box-shadow: none;
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.markdown-rendered .search-highlight > div.is-active {
+  background-color: color-mix(in srgb, var(--pt-current-match-line) 18%, transparent);
+  box-shadow: inset 0 -2px var(--pt-current-match-line);
+}
+
 /* Apply the accepted light-mode syntax palette to fenced blocks only. */
 .theme-light .markdown-rendered pre,
 .theme-light .markdown-source-view.mod-cm6 .HyperMD-codeblock {
